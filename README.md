@@ -2,16 +2,17 @@
 
 Configwalker is a configuration extractor for Netwalker Ransomware. It is capable of decrypting the RC4 encrypted Resource File and extracting the Ransomnote template. By default it will dump the results to disk, but you can also choose to print the config to stdout only by appending ```--print``` to the command.
 
-
 ## Usage
 
 ```go run path/to/sample.exe [--print]```
 
+<br>
 
 ## Screenshots
 
 ![Configwalker Screenshot](screenshots/sc.png)
 
+<br>
 
 ## Background Info
 
@@ -22,6 +23,14 @@ Not all samples of Netwalker Ransomware will contain a full configuration file. 
 
 ![short plaintext](screenshots/plain-config.png)
 
+<br>
+
+The first 4 bytes of the resource contain the length of the following RC4 Key. This value changes from sample to sample. With this information it is easy to extract the key and decrypt the rest of the resource.
+
+![hexeditor](screenshots/hexeditor.png)
+
+
+<br>
 
 ## Testing
 
