@@ -1,3 +1,5 @@
+[![Go Report Card](https://goreportcard.com/badge/github.com/f0wl/configwalker)](https://goreportcard.com/report/github.com/f0wl/configwalker)
+
 # configwalker
 
 Configwalker is a configuration extractor for Netwalker Ransomware. It is capable of decrypting the RC4 encrypted Resource File and extracting the Ransomnote template. By default it will dump the results to disk, but you can also choose to print the config to stdout only by appending ```--print``` to the command.
