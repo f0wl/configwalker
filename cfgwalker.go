@@ -65,14 +65,17 @@ func main() {
 	for _, r := range resources {
 		// The Netwalker config is safed in the Resource section under 1337/31337
 		if r.Name == "1337/31337/0" {
-			// write encrypted resource to file for safe-keeping
-			writeErr := ioutil.WriteFile("config.enc", r.Data, 0644)
-			check(writeErr)
 			encryptedData = r.Data
-			fmt.Printf(Sprintf(Green(" [+] Wrote extracted resource to %s"), White("'config.enc'\n\n")))
 		} else {
 			fmt.Printf(Sprintf(Red(" [!] Error: No config resource found.\n\n")))
 		}
+	}
+
+	if len(os.Args) < 2 {
+		// write encrypted resource to file for safe-keeping
+		writeErr := ioutil.WriteFile("config.enc", encryptedData, 0644)
+		check(writeErr)
+		fmt.Printf(Sprintf(Green(" [+] Wrote extracted resource to %s"), White("'config.enc'\n\n")))
 	}
 
 	// the length of the RC4 Key is defined in the first 4 bytes of the file
