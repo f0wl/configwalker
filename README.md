@@ -10,7 +10,47 @@ Configwalker is a configuration extractor for Netwalker Ransomware. It is capabl
 
 ## Screenshots
 
-![Configwalker Screenshot](screenshots/sc.png)
+<p align="center">
+  <img src="screenshots/sc.png">
+</p>
+
+
+<br>
+
+## Configuration contents
+
+The table below shows the keys used in the JSON configuration of Netwalker Ransomware. 
+
+| Key  | Value / Purpose |
+|:----:|:---------------:|
+| mpk  | Base64 encoded Public Key|
+| mode | Presumably related to the encryption process |
+| spsz | Chunk size for encryption |
+| thr | Threading limit |
+| namesz | Length of the random name for the persistent executable |
+| idsz | Length of the random file extension |
+| pers | Presumably related to target / victim type |
+| mail | Contact e-Mail addresses |
+| onion1 | Main TOR site |
+| onion2 | Backup TOR site |
+| lfile | Template string for the ransomnote filename |
+| lend | Base64 encoded ransomnote template |
+| white{path[ ]} | Whitelist for system directories |
+| white{file[ ]} | Whitelist for system files |
+| white{ext[ ]} | Whitelist for file extensions |
+| kill{use:bool} | Switch to kill specified processes or not |
+| kill{prc[ ]} | List of process names to be terminated |
+| kill{svc[ ]} | List of services to be terminated |
+| kill{svcwait:int} | Timeout before terminating a service |
+| kill{task[ ]} | Task after successful encryption |
+| net{use:bool} | Switch encryption of mapped (network) drives on/off |
+| net{ignore{use:bool}} | Use of Whitelists for drive Encryption |
+| net{ignore{disk:bool}} | Encrypt mounted disks |
+| net{ignore{share[ ]}} | Whitelisted shares |
+| unlocker{use:bool} | Presumably enables decryption capabilities |
+| unlocker{ignore{use:bool}} | Use Ignorelist during decryption |
+| unlocker{ignore{pspath[ ]}} | Process Paths to ignore |
+| unlocker{ignore{prc[ ]}} | Processes to ignore |
 
 <br>
 
@@ -18,17 +58,21 @@ Configwalker is a configuration extractor for Netwalker Ransomware. It is capabl
 
 Not all samples of Netwalker Ransomware will contain a full configuration file. Below you can see two screenshots of Resource Hacker, one with an long encrypted config and one with a short plaintext config. This tool only works for the former format.
 
-![long encrypted](screenshots/encrypted-config.png)
+<p align="center">
+  <img src="screenshots/encrypted-config.png">
+</p>
 
-
-![short plaintext](screenshots/plain-config.png)
+<p align="center">
+  <img src="screenshots/plain-config.png">
+</p>
 
 <br>
 
 The first 4 bytes of the resource contain the length of the following RC4 Key. This value changes from sample to sample. With this information it is easy to extract the key and decrypt the rest of the resource.
 
-![hexeditor](screenshots/hexeditor.png)
-
+<p align="center">
+  <img src="screenshots/hexeditor.png">
+</p>
 
 <br>
 
