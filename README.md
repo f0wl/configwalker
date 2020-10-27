@@ -68,7 +68,7 @@ Not all samples of Netwalker Ransomware will contain a full configuration file. 
 
 <br>
 
-The first 4 Bytes of the resource contain the length of the following RC4 Key plus padding. This value changes from sample to sample. With this information it is easy to extract the key and decrypt the rest of the resource.
+The first 4 Bytes of the resource ("1337/31337/0") contain the length of the RC4 Key. This value changes from sample to sample. With this information it is easy to extract the key and decrypt the rest of the resource.
 
 <p align="center">
   <img src="screenshots/hexeditor.png">
