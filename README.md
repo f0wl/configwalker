@@ -4,7 +4,7 @@ Configwalker is a configuration extractor for Netwalker Ransomware. It is capabl
 
 ## Usage
 
-```go run path/to/sample.exe [--print]```
+```go run cfgwalker.go path/to/sample.exe [--print]```
 
 <br>
 
@@ -68,7 +68,7 @@ Not all samples of Netwalker Ransomware will contain a full configuration file. 
 
 <br>
 
-The first 4 bytes of the resource contain the length of the following RC4 Key. This value changes from sample to sample. With this information it is easy to extract the key and decrypt the rest of the resource.
+The first 4 Bytes of the resource contain the length of the following RC4 Key plus padding. This value changes from sample to sample. With this information it is easy to extract the key and decrypt the rest of the resource.
 
 <p align="center">
   <img src="screenshots/hexeditor.png">
@@ -78,7 +78,7 @@ The first 4 bytes of the resource contain the length of the following RC4 Key. T
 
 ## Testing
 
-The tool has been confirmed to successfully extract the configuration from the following samples identifiable by their SHA-256 hashsums. If you encounter an error with configwalker please file a bug report as an issue. On some occasions the Netwalker config files contain malformed json objects (fix WIP).
+The tool has been confirmed to successfully extract the configuration from the following samples identifiable by their SHA-256 hashsums. If you encounter an error with configwalker please file a bug report via an issue. On some occasions the Netwalker config files contain malformed json objects which may cause configwalker to crash (fix WIP).
 
 | SHA-256 Hashsums|
 |:---------------:| 
