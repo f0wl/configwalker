@@ -6,6 +6,7 @@ import (
 	"encoding/base64"
 	"encoding/hex"
 	"encoding/json"
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -32,6 +33,10 @@ func rc4decrypt(extkey []byte, data []byte) []byte {
 	return data
 }
 
+var (
+	verboseFlag bool
+)
+
 func main() {
 
 	fmt.Printf("\n\n     ,-----.,------. ,----.   ,--.   ,--.        ,--.,--.                  \n")
@@ -42,13 +47,15 @@ func main() {
 	fmt.Printf("\n                Netwalker Ransomware Configuration Extractor\n")
 	fmt.Printf("            Marius 'f0wL' Genheimer | https://dissectingmalwa.re\n\n\n")
 
-	if len(os.Args) < 2 {
-		fmt.Println("   Usage: go run cfgwalker.go netwalker_sample.exe [--print (write to stdout instead of a file)]")
+	flag.BoolVar(&verboseFlag, "print", false, "Print config to stdout")
+	flag.Parse()
+	if flag.NArg() == 0 {
+			fmt.Printf(Sprintf(Red(" [!] Error: No path to sample provided\n\n")))
 		os.Exit(1)
 	}
 
 	// open the sample with pefile
-	f, openErr := pefile.Open(os.Args[1])
+	f, openErr := pefile.Open(flag.Args()[0])
 	check(openErr)
 	defer f.Close()
 	// Fetch resources from the PE
@@ -71,7 +78,7 @@ func main() {
 		}
 	}
 
-	if len(os.Args) < 2 {
+	if !verboseFlag{
 		// write encrypted resource to file for safe-keeping
 		writeErr := ioutil.WriteFile("config.enc", encryptedData, 0644)
 		check(writeErr)
@@ -96,7 +103,7 @@ func main() {
 	jsonErr := json.Indent(&out, config, "", "  ")
 	check(jsonErr)
 
-	if len(os.Args) > 2 && os.Args[2] == "--print" {
+	if verboseFlag {
 		fmt.Printf(Sprintf(Green(" [+] Decrypted JSON Config: \n\n")))
 		fmt.Printf("%v\n\n", out.String())
 	} else {
@@ -120,7 +127,7 @@ func main() {
 	decodedNote, base64Err := base64.StdEncoding.DecodeString(ransomnote.(string))
 	check(base64Err)
 
-	if len(os.Args) > 2 && os.Args[2] == "--print" {
+	if verboseFlag{
 		fmt.Printf(Sprintf(Green("\n\n [+] Extracted and base64 decoded Ransomnote:\n\n")))
 		fmt.Printf(string(decodedNote) + "\n\n")
 	} else {

@@ -1,0 +1,4 @@
+github.com/folbricht/pefile v0.1.0 h1:y9aMwgNlPO/iyp8Izll3Au4XNp7Fi7uDH8OKZ1Nl+lw=
+github.com/folbricht/pefile v0.1.0/go.mod h1:QP4MiHKu0BG/jiftQCJoiH+mM1UMNncR3S+HeioLtvc=
+github.com/logrusorgru/aurora v2.0.3+incompatible h1:tOpm7WcpBTn4fjmVfgpQq0EfczGlG91VSDkswnjF5A8=
+github.com/logrusorgru/aurora v2.0.3+incompatible/go.mod h1:7rIyQOR62GCctdiQpZ/zOJlFyk6y+94wXzv6RNZgaR4=
