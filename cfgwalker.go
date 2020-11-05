@@ -50,7 +50,7 @@ func main() {
 	flag.BoolVar(&verboseFlag, "print", false, "Print config to stdout")
 	flag.Parse()
 	if flag.NArg() == 0 {
-			fmt.Printf(Sprintf(Red(" [!] Error: No path to sample provided\n\n")))
+		fmt.Printf(Sprintf(Red(" [!] Error: No path to sample provided\n\n")))
 		os.Exit(1)
 	}
 
@@ -78,7 +78,7 @@ func main() {
 		}
 	}
 
-	if !verboseFlag{
+	if !verboseFlag {
 		// write encrypted resource to file for safe-keeping
 		writeErr := ioutil.WriteFile("config.enc", encryptedData, 0644)
 		check(writeErr)
@@ -101,7 +101,22 @@ func main() {
 	// beautify the json string
 	var out bytes.Buffer
 	jsonErr := json.Indent(&out, config, "", "  ")
-	check(jsonErr)
+
+	// especially in newer samples there a some stray characters in the json config. Since we can't beautify
+	// malformed json without throwing errors it will just save it to a text file and it's up to the analyst
+	// to fix it :D
+	if jsonErr != nil {
+		if verboseFlag {
+			fmt.Printf(Sprintf(Yellow(" [*] The JSON Configuration seems to be malformed. Raw Config contents: \n\n")))
+			fmt.Printf(string(config) + "\n\n")
+			os.Exit(0)
+		} else {
+			writeErr := ioutil.WriteFile("config.txt", config, 0644)
+			check(writeErr)
+			fmt.Printf(Sprintf(Yellow(" [*] The JSON Configuration seems to be malformed. Wrote decrypted config blob to %s"), White("'config.txt'\n\n")))
+			os.Exit(0)
+		}
+	}
 
 	if verboseFlag {
 		fmt.Printf(Sprintf(Green(" [+] Decrypted JSON Config: \n\n")))
@@ -127,7 +142,7 @@ func main() {
 	decodedNote, base64Err := base64.StdEncoding.DecodeString(ransomnote.(string))
 	check(base64Err)
 
-	if verboseFlag{
+	if verboseFlag {
 		fmt.Printf(Sprintf(Green("\n\n [+] Extracted and base64 decoded Ransomnote:\n\n")))
 		fmt.Printf(string(decodedNote) + "\n\n")
 	} else {

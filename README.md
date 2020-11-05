@@ -72,7 +72,8 @@ to sample. With this information it is easy to extract the key and decrypt the r
 
 The tool has been confirmed to successfully extract the configuration from the following samples identifiable by
 their SHA-256 hashsums. If you encounter an error with configwalker please file a bug report via an issue. On some
-occasions the Netwalker config files contain malformed json objects which may cause configwalker to crash (fix WIP).
+occasions the Netwalker config files contain malformed json objects. In this case the extracted and decrypted JSON will
+not be beautified and written to disk as a textfile.
 
 |                          SHA-256 Hashsums                          |                                                      Sample                                                       |
 | :----------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------: |
